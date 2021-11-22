@@ -38,7 +38,7 @@ func main() {
 	for i, row := range data {
 
 		// Solo se extraen columnas de interes
-		newRow := []string{row[0], row[8], row[12], row[20], row[21], row[22], row[23], row[28], row[33], row[34], row[35]}
+		newRow := []string{row[0], row[8], row[12], row[20], row[21], row[22], row[23], row[28], row[33], row[34], row[35], row[9], row[29], row[30]}
 
 		// Se guarda nombre de las columnas
 		if i == 0 {
@@ -51,11 +51,13 @@ func main() {
 			newRow[3] = edadMadre(row[20])
 			newRow[4] = estadoConyugalMadre(row[21])
 			newRow[5] = nivelEducativo(row[22])
-			newRow[6] = ultimoAñoAprobado(row[23])
-			newRow[7] = numeroNacidosVivosTotalMadre(row[28])
+			newRow[6] = sinInfo(row[23])
+			newRow[7] = sinInfo(row[28])
 			newRow[8] = edadPadre(row[33])
 			newRow[9] = nivelEducativo(row[34])
-			newRow[10] = ultimoAñoAprobado(row[35])
+			newRow[10] = sinInfo(row[35])
+			newRow[11] = mesOcurrencia(row[9])
+			newRow[13] = sinInfo(row[30])
 
 			_ = csvWriter.Write(newRow)
 		}
@@ -162,16 +164,7 @@ func nivelEducativo(val string) string {
 	}
 }
 
-func ultimoAñoAprobado(val string) string {
-	switch val {
-	case "99":
-		return "Sin informacion"
-	default:
-		return val
-	}
-}
-
-func numeroNacidosVivosTotalMadre(val string) string {
+func sinInfo(val string) string {
 	switch val {
 	case "99":
 		return "Sin informacion"
@@ -184,6 +177,37 @@ func edadPadre(val string) string {
 	switch val {
 	case "999":
 		return "Sin informacion"
+	default:
+		return val
+	}
+}
+
+func mesOcurrencia(val string) string {
+	switch val {
+	case "01":
+		return "Enero"
+	case "02":
+		return "Febrero"
+	case "03":
+		return "Marzo"
+	case "04":
+		return "Abril"
+	case "05":
+		return "Mayo"
+	case "06":
+		return "Junio"
+	case "07":
+		return "Julio"
+	case "08":
+		return "Agosto"
+	case "09":
+		return "Septiembre"
+	case "10":
+		return "Octubre"
+	case "11":
+		return "Noviembre"
+	case "12":
+		return "Diciembre"
 	default:
 		return val
 	}
